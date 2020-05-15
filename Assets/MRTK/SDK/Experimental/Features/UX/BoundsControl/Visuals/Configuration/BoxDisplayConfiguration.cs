@@ -28,7 +28,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControl
                 if (boxMaterial != value)
                 {
                     boxMaterial = value;
-                    materialChanged.Invoke();
+                    configurationChanged.Invoke();
                 }
             }
         }
@@ -48,7 +48,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControl
                 if (boxGrabbedMaterial != value)
                 {
                     boxGrabbedMaterial = value;
-                    materialChanged.Invoke();
+                    configurationChanged.Invoke();
                 }
             }
         }
@@ -68,12 +68,11 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControl
                 if (flattenAxisDisplayScale != value)
                 {
                     flattenAxisDisplayScale = value;
-                    flattenAxisScaleChanged.Invoke();
+                    configurationChanged.Invoke();
                 }
             }
         }
 
-        internal UnityEvent materialChanged = new UnityEvent();
-        internal UnityEvent flattenAxisScaleChanged = new UnityEvent();
+        internal protected UnityEvent configurationChanged = new UnityEvent();
     }
 }

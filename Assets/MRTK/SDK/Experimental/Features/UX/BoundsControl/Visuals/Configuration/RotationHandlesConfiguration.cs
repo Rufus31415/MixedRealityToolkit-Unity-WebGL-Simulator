@@ -3,7 +3,6 @@
 
 using Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControlTypes;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControl
 {
@@ -17,12 +16,12 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControl
 
         [SerializeField]
         [Tooltip("Determines the type of collider that will surround the rotation handle prefab.")]
-        private HandlePrefabCollider rotationHandlePrefabColliderType = HandlePrefabCollider.Box;
+        private RotationHandlePrefabCollider rotationHandlePrefabColliderType = RotationHandlePrefabCollider.Box;
 
         /// <summary>
         /// Determines the type of collider that will surround the rotation handle prefab.
         /// </summary>
-        public HandlePrefabCollider RotationHandlePrefabColliderType
+        public RotationHandlePrefabCollider RotationHandlePrefabColliderType
         {
             get
             {
@@ -33,7 +32,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControl
                 if (rotationHandlePrefabColliderType != value)
                 {
                     rotationHandlePrefabColliderType = value;
-                    colliderTypeChanged.Invoke();
+                    configurationChanged.Invoke();
                 }
             }
         }
@@ -56,7 +55,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControl
                 if (showRotationHandleForX != value)
                 {
                     showRotationHandleForX = value;
-                    handlesChanged.Invoke(HandlesChangedEventType.Visibility);
+                    visibilityChanged.Invoke();
                 }
             }
         }
@@ -79,7 +78,7 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControl
                 if (showRotationHandleForY != value)
                 {
                     showRotationHandleForY = value;
-                    handlesChanged.Invoke(HandlesChangedEventType.Visibility);
+                    visibilityChanged.Invoke();
                 }
             }
         }
@@ -102,11 +101,9 @@ namespace Microsoft.MixedReality.Toolkit.Experimental.UI.BoundsControl
                 if (showRotationHandleForZ != value)
                 {
                     showRotationHandleForZ = value;
-                    handlesChanged.Invoke(HandlesChangedEventType.Visibility);
+                    visibilityChanged.Invoke();
                 }
             }
         }
-
-        internal UnityEvent colliderTypeChanged = new UnityEvent();
     }
 }

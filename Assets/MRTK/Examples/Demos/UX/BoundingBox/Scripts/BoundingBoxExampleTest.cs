@@ -64,7 +64,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
                 bbox = cube.AddComponent<BoundingBox>();
                 bbox.HideElementsInInspector = false;
                 bbox.BoundingBoxActivation = BoundingBox.BoundingBoxActivationType.ActivateOnStart;
-                var om = cube.AddComponent<ObjectManipulator>();
+                var mh = cube.AddComponent<ManipulationHandler>();
                 yield return WaitForSpeechCommand();
 
                 SetStatus("Set Target bounds override");
@@ -141,8 +141,8 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
 
                 SetStatus("BBox grabbed material red");
                 bbox.BoxGrabbedMaterial = redMaterial;
-                om.OnManipulationStarted.AddListener((med) => bbox.HighlightWires());
-                om.OnManipulationEnded.AddListener((med) => bbox.UnhighlightWires());
+                mh.OnManipulationStarted.AddListener((med) => bbox.HighlightWires());
+                mh.OnManipulationEnded.AddListener((med) => bbox.UnhighlightWires());
                 yield return WaitForSpeechCommand();
 
                 SetStatus("BBox material none");
@@ -197,7 +197,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos
                 bbox.BoundingBoxActivation = BoundingBox.BoundingBoxActivationType.ActivateOnStart;
                 bbox.HideElementsInInspector = false;
                 bbox.WireframeEdgeRadius = .05f;
-                multiRoot.AddComponent<ObjectManipulator>();
+                multiRoot.AddComponent<ManipulationHandler>();
 
                 SetStatus("Randomize Child Scale for skewing");
                 yield return WaitForSpeechCommand();

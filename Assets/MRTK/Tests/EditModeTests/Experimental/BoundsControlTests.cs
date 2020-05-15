@@ -34,6 +34,8 @@ namespace Microsoft.MixedReality.Toolkit.Tests.EditMode.Experimental
             boundsControl.BoundsOverride = collider;
             boundsControl.CalculationMethod = BoundsCalculationMethod.ColliderOverRenderer;
             boundsControl.BoundsControlActivation = BoundsControlActivationType.ActivateByProximityAndPointer;
+            boundsControl.DrawTetherWhenManipulating = false;
+            boundsControl.HandlesIgnoreCollider = collider;
             boundsControl.FlattenAxis = FlattenModeType.FlattenAuto;
             boundsControl.BoxPadding = Vector3.one;
 
@@ -51,7 +53,7 @@ namespace Microsoft.MixedReality.Toolkit.Tests.EditMode.Experimental
             boxDisplayConfig.BoxMaterial = testMaterial;
             boxDisplayConfig.BoxGrabbedMaterial = testMaterial;
             boxDisplayConfig.FlattenAxisDisplayScale = 5.0f;
-            boundsControl.BoxDisplayConfig = boxDisplayConfig;
+            boundsControl.BoxDisplayConfiguration = boxDisplayConfig;
 
             // links
             LinksConfiguration linksConfig = ScriptableObject.CreateInstance<LinksConfiguration>();
@@ -62,7 +64,7 @@ namespace Microsoft.MixedReality.Toolkit.Tests.EditMode.Experimental
             linksConfig.WireframeEdgeRadius = 1.0f;
             linksConfig.WireframeShape = WireframeType.Cylindrical;
             linksConfig.ShowWireFrame = false;
-            boundsControl.LinksConfig = linksConfig;
+            boundsControl.LinksConfiguration = linksConfig;
 
             // scale handles
             ScaleHandlesConfiguration scaleConfig = ScriptableObject.CreateInstance<ScaleHandlesConfiguration>();
@@ -77,10 +79,8 @@ namespace Microsoft.MixedReality.Toolkit.Tests.EditMode.Experimental
             scaleConfig.HandlePrefab = testCube;
             scaleConfig.HandleSize = 0.05f ;
             scaleConfig.ColliderPadding = Vector3.one;
-            scaleConfig.DrawTetherWhenManipulating = false;
-            scaleConfig.HandlesIgnoreCollider = collider;
 
-            boundsControl.ScaleHandlesConfig = scaleConfig;
+            boundsControl.ScaleHandlesConfiguration = scaleConfig;
 
             // rotation handles
             RotationHandlesConfiguration rotationHandles = ScriptableObject.CreateInstance<RotationHandlesConfiguration>();
@@ -88,7 +88,7 @@ namespace Microsoft.MixedReality.Toolkit.Tests.EditMode.Experimental
             assetsToDestroy.Add(path);
             AssetDatabase.CreateAsset(rotationHandles, path);
 
-            rotationHandles.RotationHandlePrefabColliderType = HandlePrefabCollider.Box;
+            rotationHandles.RotationHandlePrefabColliderType = RotationHandlePrefabCollider.Box;
             rotationHandles.ShowRotationHandleForX = false;
             rotationHandles.ShowRotationHandleForY = true;
             rotationHandles.ShowRotationHandleForZ = true;
@@ -97,10 +97,8 @@ namespace Microsoft.MixedReality.Toolkit.Tests.EditMode.Experimental
             rotationHandles.HandlePrefab = childSphere;
             rotationHandles.HandleSize = 0.05f;
             rotationHandles.ColliderPadding = Vector3.zero;
-            rotationHandles.DrawTetherWhenManipulating = false;
-            rotationHandles.HandlesIgnoreCollider = collider;
 
-            boundsControl.RotationHandlesConfig = rotationHandles;
+            boundsControl.RotationHandles = rotationHandles;
 
             // proximity effect
             ProximityEffectConfiguration proximityConfig = ScriptableObject.CreateInstance<ProximityEffectConfiguration>();
@@ -118,7 +116,7 @@ namespace Microsoft.MixedReality.Toolkit.Tests.EditMode.Experimental
             proximityConfig.MediumGrowRate = 0.1f;
             proximityConfig.CloseGrowRate = 0.5f;
 
-            boundsControl.HandleProximityEffectConfig = proximityConfig;
+            boundsControl.HandleProximityEffectConfiguration = proximityConfig;
 
             // clean up created assets
             foreach (string assetPath in assetsToDestroy)

@@ -7,8 +7,8 @@ using UnityEngine;
 namespace Microsoft.MixedReality.Toolkit.UI
 {
     /// <summary>
-    /// Component for limiting the rotation axes for ObjectManipulator
-    /// or BoundsControl
+    /// Component for limiting the rotation axes for ManipulationHandler
+    /// or BoundingBox
     /// </summary>
     public class RotationAxisConstraint : TransformConstraint
     {

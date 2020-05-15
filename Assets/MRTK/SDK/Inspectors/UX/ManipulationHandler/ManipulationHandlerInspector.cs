@@ -1,8 +1,10 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿//
+// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
+//
 
+using Microsoft.MixedReality.Toolkit.Experimental.Utilities;
 using Microsoft.MixedReality.Toolkit.UI;
-using Microsoft.MixedReality.Toolkit.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -196,12 +198,14 @@ namespace Microsoft.MixedReality.Toolkit.Editor
             EditorGUILayout.HelpBox("This component is deprecated. Please migrate object to up to date version", MessageType.Warning);
             if (GUILayout.Button("Migrate Object"))
             {
+#if UNITY_EDITOR
                 MigrationTool migrationTool = new MigrationTool();
 
                 var component = (ManipulationHandler)target;
 
-                migrationTool.TryAddObjectForMigration(typeof(ObjectManipulatorMigrationHandler), (GameObject)component.gameObject);
+                migrationTool.TryAddObjectForMigration((GameObject)component.gameObject);
                 migrationTool.MigrateSelection(typeof(ObjectManipulatorMigrationHandler), true);
+#endif
             }
         }
     }

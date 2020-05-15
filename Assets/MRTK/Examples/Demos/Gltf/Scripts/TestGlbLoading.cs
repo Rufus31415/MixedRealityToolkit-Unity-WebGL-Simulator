@@ -24,7 +24,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Demos.Gltf
 
             try
             {
-                response = await Rest.GetAsync(uri, readResponseData: true);
+                response = await Rest.GetAsync(uri);
             }
             catch (Exception e)
             {

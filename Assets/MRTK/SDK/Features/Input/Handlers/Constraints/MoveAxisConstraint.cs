@@ -7,8 +7,8 @@ using UnityEngine;
 namespace Microsoft.MixedReality.Toolkit.UI
 {
     /// <summary>
-    /// Component for limiting the translation axes for ObjectManipulator
-    /// or BoundsControl
+    /// Component for limiting the translation axes for ManipulationHandler
+    /// or BoundingBox
     /// </summary>
     public class MoveAxisConstraint : TransformConstraint
     {

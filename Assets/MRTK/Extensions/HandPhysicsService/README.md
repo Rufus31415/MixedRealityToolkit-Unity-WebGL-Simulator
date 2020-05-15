@@ -1,5 +1,4 @@
 # Hand physics extension service
-![Hand Physics Extension Service](../../../../Documentation/Images/HandPhysics/MRTK_UX_HandPhysics_Main.jpg)
 
 The hand physics service enables rigid body collision events and interactions with articulated hands.
 

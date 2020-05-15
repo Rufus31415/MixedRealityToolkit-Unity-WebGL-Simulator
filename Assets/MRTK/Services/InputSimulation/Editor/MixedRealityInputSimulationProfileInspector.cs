@@ -15,7 +15,6 @@ namespace Microsoft.MixedReality.Toolkit.Input
         private SerializedProperty doublePressTime;
 
         private SerializedProperty isCameraControlEnabled;
-        private SerializedProperty isHandsFreeInputEnabled;
 
         private SerializedProperty mouseLookSpeed;
         private SerializedProperty mouseRotationSensitivity;
@@ -71,7 +70,6 @@ namespace Microsoft.MixedReality.Toolkit.Input
             doublePressTime = serializedObject.FindProperty("doublePressTime");
 
             isCameraControlEnabled = serializedObject.FindProperty("isCameraControlEnabled");
-            isHandsFreeInputEnabled = serializedObject.FindProperty("isHandsFreeInputEnabled");
 
             mouseLookSpeed = serializedObject.FindProperty("mouseLookSpeed");
             mouseRotationSensitivity = serializedObject.FindProperty("mouseRotationSensitivity");
@@ -137,7 +135,6 @@ namespace Microsoft.MixedReality.Toolkit.Input
                 EditorGUILayout.PropertyField(mouseY);
                 EditorGUILayout.PropertyField(mouseScroll);
                 EditorGUILayout.PropertyField(doublePressTime);
-                EditorGUILayout.PropertyField(isHandsFreeInputEnabled);
                 EditorGUILayout.EndVertical();
 
                 EditorGUILayout.PropertyField(isCameraControlEnabled);

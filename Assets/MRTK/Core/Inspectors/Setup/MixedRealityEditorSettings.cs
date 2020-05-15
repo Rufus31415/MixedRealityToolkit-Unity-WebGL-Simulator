@@ -2,8 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Microsoft.MixedReality.Toolkit.Editor;
-using System.Linq;
-using System.Text;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -18,8 +16,7 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Editor
     public class MixedRealityEditorSettings : IActiveBuildTargetChanged, IPreprocessBuildWithReport
     {
         private const string SessionKey = "_MixedRealityToolkit_Editor_ShownSettingsPrompts";
-        private static readonly string[] UwpRecommendedAudioSpatializers = { "MS HRTF Spatializer", "Microsoft Spatializer" };
-
+        private const string MSFT_AudioSpatializerPlugin = "MS HRTF Spatializer";
 #if UNITY_ANDROID
         const string RenderingMode = "Single Pass Stereo";
 #else
@@ -126,14 +123,11 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Editor
                     Debug.LogWarning("<b>Depth Buffer Sharing</b> has 24-bit depth format selected. Consider using 16-bit for performance. See <i>Mixed Reality Toolkit</i> > <i>Utilities</i> > <i>Optimize Window</i> tool for more information to improve performance");
                 }
 
-                if (!UwpRecommendedAudioSpatializers.Contains(SpatializerUtilities.CurrentSpatializer))
+                if (!AudioSettings.GetSpatializerPluginName().Equals(MSFT_AudioSpatializerPlugin))
                 {
-                    Debug.LogWarning($"This application is not using the recommended <b>Audio Spatializer Plugin</b>. Go to <i>Project Settings</i> > <i>Audio</i> > <i>Spatializer Plugin</i> and select one of the following: {string.Join(", ", UwpRecommendedAudioSpatializers)}.");
+                    // If using UWP, developers should use the Microsoft Audio Spatializer plugin
+                    Debug.LogWarning("<b>Audio Spatializer Plugin</b> not currently set to <i>" + MSFT_AudioSpatializerPlugin + "</i>. Switch to <i>" + MSFT_AudioSpatializerPlugin + "</i> under <i>Project Settings</i> > <i>Audio</i> > <i>Spatializer Plugin</i>");
                 }
-            }
-            else if (SpatializerUtilities.CurrentSpatializer == null)
-            {
-                Debug.LogWarning($"This application is not using an <b>Audio Spatializer Plugin</b>. Go to <i>Project Settings</i> > <i>Audio</i> > <i>Spatializer Plugin</i> and select one of the available options.");
             }
         }
 

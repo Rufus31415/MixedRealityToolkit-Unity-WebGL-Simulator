@@ -133,11 +133,11 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Solvers
         public enum SolverOffsetBehavior
         {
             /// <summary>
-            /// Uses the object-to-head vector to compute an offset independent of hand rotation.
+            /// Uses the look at camera rotation to compute an offset independent of hand rotation.
             /// </summary>
             LookAtCameraRotation,
             /// <summary>
-            /// Uses the object-to-head vector to compute an offset independent of look at camera rotation.
+            /// Uses the hand rotation to compute an offset independent of look at camera rotation.
             /// </summary>
             TrackedObjectRotation
         }
@@ -438,7 +438,6 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Solvers
         private static Ray CalculateProjectedSafeZoneRay(Vector3 origin, Transform targetTransform, IMixedRealityController hand, SolverSafeZone handSafeZone, SolverOffsetBehavior offsetBehavior)
         {
             Vector3 direction;
-            Vector3 lookAtCamera = targetTransform.transform.position - CameraCache.Main.transform.position;
 
             switch (handSafeZone)
             {
@@ -451,7 +450,7 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Solvers
                         }
                         else
                         {
-                            direction = Vector3.Cross(lookAtCamera, Vector3.up);
+                            direction = Vector3.Cross(CameraCache.Main.transform.forward, Vector3.up);
                             direction = IsPalmFacingCamera(hand) ? direction : -direction;
                         }
 
@@ -471,7 +470,7 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Solvers
                         }
                         else
                         {
-                            direction = Vector3.Cross(lookAtCamera, Vector3.up);
+                            direction = Vector3.Cross(CameraCache.Main.transform.forward, Vector3.up);
                             direction = IsPalmFacingCamera(hand) ? direction : -direction;
                         }
 
@@ -537,12 +536,7 @@ namespace Microsoft.MixedReality.Toolkit.Utilities.Solvers
             return controller.ControllerHandedness != Handedness.None;
         }
 
-        /// <summary>
-        /// Returns the first detected controller in the input system that matches the passed-in handedness
-        /// </summary>
-        /// <param name="handedness">The handedness of the returned controller</param>
-        /// <returns>The IMixedRealityController for the desired handedness, or null if none are present.</returns>
-        protected static IMixedRealityController GetController(Handedness handedness)
+        private static IMixedRealityController GetController(Handedness handedness)
         {
             foreach (IMixedRealityController c in CoreServices.InputSystem.DetectedControllers)
             {

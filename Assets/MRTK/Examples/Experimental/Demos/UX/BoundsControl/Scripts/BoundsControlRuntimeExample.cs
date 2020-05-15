@@ -68,7 +68,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Experimental.Demos
                 boundsControl = cube.AddComponent<BoundsControl>();
                 boundsControl.HideElementsInInspector = false;
                 boundsControl.BoundsControlActivation = BoundsControlActivationType.ActivateOnStart;
-                var om = cube.AddComponent<ObjectManipulator>();
+                var mh = cube.AddComponent<ManipulationHandler>();
                 yield return WaitForSpeechCommand();
 
                 SetStatus("Set Target bounds override");
@@ -110,11 +110,11 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Experimental.Demos
                 yield return WaitForSpeechCommand();
 
                 SetStatus("ShowWireframe false");
-                boundsControl.LinksConfig.ShowWireFrame = false;
+                boundsControl.LinksConfiguration.ShowWireFrame = false;
                 yield return WaitForSpeechCommand();
 
                 SetStatus("ShowWireframe true");
-                boundsControl.LinksConfig.ShowWireFrame = true;
+                boundsControl.LinksConfiguration.ShowWireFrame = true;
                 yield return WaitForSpeechCommand();
 
                 SetStatus("BoxPadding 0.2f");
@@ -126,49 +126,51 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Experimental.Demos
                 yield return WaitForSpeechCommand();
 
                 SetStatus("Set scale handle size 0.3");
-                boundsControl.ScaleHandlesConfig.HandleSize = 0.3f;
+                boundsControl.ScaleHandlesConfiguration.HandleSize = 0.3f;
                 yield return WaitForSpeechCommand();
 
                 SetStatus("Set scale handle widget prefab");
                 Debug.Assert(scaleWidget != null);
-                boundsControl.ScaleHandlesConfig.HandlePrefab = scaleWidget;
+                boundsControl.ScaleHandlesConfiguration.HandlePrefab = scaleWidget;
                 yield return WaitForSpeechCommand();
 
                 SetStatus("Handles red");
-                boundsControl.ScaleHandlesConfig.HandleMaterial = redMaterial;
-                boundsControl.RotationHandlesConfig.HandleMaterial = redMaterial;
+                boundsControl.ScaleHandlesConfiguration.HandleMaterial = redMaterial;
+                boundsControl.RotationHandles.HandleMaterial = redMaterial;
                 yield return WaitForSpeechCommand();
 
                 SetStatus("BBox material cyan");
                 Debug.Assert(cyanMaterial != null);
-                boundsControl.BoxDisplayConfig.BoxMaterial = cyanMaterial;
+                boundsControl.BoxDisplayConfiguration.BoxMaterial = cyanMaterial;
                 yield return WaitForSpeechCommand();
 
                 SetStatus("BBox grabbed material red");
-                boundsControl.BoxDisplayConfig.BoxGrabbedMaterial = redMaterial;
-                om.OnManipulationStarted.AddListener((med) => boundsControl.HighlightWires());
-                om.OnManipulationEnded.AddListener((med) => boundsControl.UnhighlightWires());
+                boundsControl.BoxDisplayConfiguration.BoxGrabbedMaterial = redMaterial;
+                mh.OnManipulationStarted.AddListener((med) => boundsControl.HighlightWires());
+                mh.OnManipulationEnded.AddListener((med) => boundsControl.UnhighlightWires());
                 yield return WaitForSpeechCommand();
 
                 SetStatus("BBox material none");
-                boundsControl.BoxDisplayConfig.BoxMaterial = null;
+                boundsControl.BoxDisplayConfiguration.BoxMaterial = null;
                 yield return WaitForSpeechCommand();
 
                 SetStatus("Scale X and update rig");
                 cube.transform.localScale = new Vector3(2, 1, 1);
+                boundsControl.CreateRig();
                 yield return WaitForSpeechCommand();
 
                 SetStatus("Rotate 20 degrees and update rig");
                 cube.transform.localRotation = Quaternion.Euler(0, 20, 0);
-                boundsControl.RotationHandlesConfig.ShowRotationHandleForY = true;
+                boundsControl.RotationHandles.ShowRotationHandleForY = true;
+                boundsControl.CreateRig();
                 yield return WaitForSpeechCommand();
 
                 SetStatus("Wireframe radius 0.1");
-                boundsControl.LinksConfig.WireframeEdgeRadius = 0.1f;
+                boundsControl.LinksConfiguration.WireframeEdgeRadius = 0.1f;
                 yield return WaitForSpeechCommand();
 
                 SetStatus("Wireframe shape cylinder");
-                boundsControl.LinksConfig.WireframeShape = WireframeType.Cylindrical;
+                boundsControl.LinksConfiguration.WireframeShape = WireframeType.Cylindrical;
                 yield return WaitForSpeechCommand();
 
                 Destroy(cube);
@@ -199,8 +201,8 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Experimental.Demos
                 boundsControl = multiRoot.AddComponent<BoundsControl>();
                 boundsControl.BoundsControlActivation = BoundsControlActivationType.ActivateOnStart;
                 boundsControl.HideElementsInInspector = false;
-                boundsControl.LinksConfig.WireframeEdgeRadius = .05f;
-                multiRoot.AddComponent<ObjectManipulator>();
+                boundsControl.LinksConfiguration.WireframeEdgeRadius = .05f;
+                multiRoot.AddComponent<ManipulationHandler>();
 
                 SetStatus("Randomize Child Scale for skewing");
                 yield return WaitForSpeechCommand();
@@ -215,7 +217,7 @@ namespace Microsoft.MixedReality.Toolkit.Examples.Experimental.Demos
                     childTransform.transform.localScale = new Vector3(baseScale * Random.Range(.5f, 2f), baseScale * Random.Range(.5f, 2f), baseScale * Random.Range(.5f, 2f));
                 }
 
-                boundsControl.LinksConfig.WireframeEdgeRadius = 1f;
+                boundsControl.LinksConfiguration.WireframeEdgeRadius = 1f;
                 boundsControl.CreateRig();
                 SetStatus("Delete GameObject");
                 yield return WaitForSpeechCommand();

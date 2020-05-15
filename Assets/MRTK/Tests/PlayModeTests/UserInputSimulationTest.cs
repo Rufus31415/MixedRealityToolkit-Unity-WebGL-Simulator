@@ -36,6 +36,7 @@ namespace Microsoft.MixedReality.Toolkit.Tests.Input
             Assert.IsNotNull(iss, "InputSimulationService is null!");
             iss.UserInputEnabled = true;
 
+
             cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.transform.localPosition = new Vector3(0, 0, 2);
             cube.transform.localScale = new Vector3(.2f, .2f, .2f);
@@ -53,7 +54,7 @@ namespace Microsoft.MixedReality.Toolkit.Tests.Input
         }
         
         [UnityTest]
-        public IEnumerator InputSimulationHandsFreeInteraction()
+        public IEnumerator HandsFreeInteractionTest()
         {
             var iss = PlayModeTestUtilities.GetInputSimulationService();
             TestUtilities.PlayspaceToOriginLookingForward();
@@ -80,60 +81,11 @@ namespace Microsoft.MixedReality.Toolkit.Tests.Input
         }
 
         [UnityTest]
-        public IEnumerator InputSimulationArticulatedHandNearGrabbable()
+        public IEnumerator ArticulatedHandGestureTest()
         {
             var iss = PlayModeTestUtilities.GetInputSimulationService();
             TestUtilities.PlayspaceToOriginLookingForward();
             yield return null;
-
-            // No hands, default cursor should be visible
-            Assert.IsTrue(CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible, "Head gaze cursor should be visible");
-
-            // Begin right hand manipulation
-            KeyInputSystem.PressKey(iss.InputSimulationProfile.ToggleRightHandKey);
-            yield return null;
-            KeyInputSystem.AdvanceSimulation();
-            yield return null;
-
-            // Make sure right hand is tracked
-            Assert.True(iss.HandDataRight.IsTracked);
-
-            TestHand hand = new TestHand(Handedness.Right);
-
-            // Head cursor invisible when hand is tracked
-            Assert.IsFalse(CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible, "Eye gaze cursor should not be visible");
-            // Hand ray visible
-            var handRayPointer = hand.GetPointer<ShellHandRayPointer>();
-            Assert.True(handRayPointer.IsActive, "Hand ray not active");
-
-            // Create grabbable cube
-            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.AddComponent<NearInteractionGrabbable>();
-            cube.transform.position = new Vector3(0, 0, 1.2f);
-            yield return null;
-
-            // Grab pointer is near grabbable
-            var grabPointer = hand.GetPointer<SpherePointer>();
-            Assert.IsTrue(grabPointer.isActiveAndEnabled, "grab pointer is enabled");
-            Assert.IsTrue(grabPointer.IsNearObject, "Grab pointer should be near a grabbable");
-
-            yield return PlayModeTestUtilities.WaitForInputSystemUpdate();
-
-            // Head cursor invisible when grab pointer is near grabbable
-            Assert.IsFalse(CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible, "Eye gaze cursor should not be visible");
-            // Hand ray invisible when grab pointer is near grabbable
-            Assert.True(!handRayPointer.IsActive, "Hand ray not active");
-        }
-
-        [UnityTest]
-        public IEnumerator InputSimulationArticulatedHandGesture()
-        {
-            var iss = PlayModeTestUtilities.GetInputSimulationService();
-            TestUtilities.PlayspaceToOriginLookingForward();
-            yield return null;
-
-            // Check that gaze cursor is initially visible
-            Assert.True(CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible);
 
             // Begin right hand manipulation
             KeyInputSystem.PressKey(iss.InputSimulationProfile.RightHandManipulationKey);
@@ -144,9 +96,6 @@ namespace Microsoft.MixedReality.Toolkit.Tests.Input
             // Make sure right hand is tracked
             Assert.True(iss.HandDataRight.IsTracked);
             Assert.True(!iss.HandDataLeft.IsTracked);
-
-            // Make sure gaze cursor is not visible
-            Assert.True(!CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible);
 
             // start click
             KeyInputSystem.PressKey(iss.InputSimulationProfile.InteractionButton);
@@ -179,9 +128,6 @@ namespace Microsoft.MixedReality.Toolkit.Tests.Input
             Assert.True(!iss.HandDataRight.IsTracked);
             Assert.True(!iss.HandDataLeft.IsTracked);
 
-            // Check that gaze cursor is visible
-            Assert.True(CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible);
-
             // Repeat with left hand
             // Begin left hand manipulation
             KeyInputSystem.PressKey(iss.InputSimulationProfile.LeftHandManipulationKey);
@@ -192,9 +138,6 @@ namespace Microsoft.MixedReality.Toolkit.Tests.Input
             // Make sure left hand is tracked
             Assert.True(!iss.HandDataRight.IsTracked);
             Assert.True(iss.HandDataLeft.IsTracked);
-
-            // Make sure gaze cursor is not visible
-            Assert.True(!CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible);
 
             // start click
             KeyInputSystem.PressKey(iss.InputSimulationProfile.InteractionButton);
@@ -228,9 +171,6 @@ namespace Microsoft.MixedReality.Toolkit.Tests.Input
             Assert.True(!iss.HandDataRight.IsTracked);
             Assert.True(!iss.HandDataLeft.IsTracked);
 
-            // Check that gaze cursor is visible
-            Assert.True(CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible);
-
             // Lastly with 2 hands
             // Begin hand manipulation
             KeyInputSystem.PressKey(iss.InputSimulationProfile.RightHandManipulationKey);
@@ -242,9 +182,6 @@ namespace Microsoft.MixedReality.Toolkit.Tests.Input
             // Make sure hands are tracked
             Assert.True(iss.HandDataRight.IsTracked);
             Assert.True(iss.HandDataLeft.IsTracked);
-
-            // Make sure gaze cursor is not visible
-            Assert.True(!CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible);
 
             // start click
             KeyInputSystem.PressKey(iss.InputSimulationProfile.InteractionButton);
@@ -279,9 +216,6 @@ namespace Microsoft.MixedReality.Toolkit.Tests.Input
             // Make sure hands are not tracked
             Assert.True(!iss.HandDataRight.IsTracked);
             Assert.True(!iss.HandDataLeft.IsTracked);
-
-            // Check that gaze cursor is visible
-            Assert.True(CoreServices.InputSystem.GazeProvider.GazeCursor.IsVisible);
         }
     }
 }
