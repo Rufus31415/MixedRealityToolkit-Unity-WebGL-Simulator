@@ -101,3 +101,7 @@ MSBuildForUnity.Common.props
 *.msb4u.sln.meta
 Dependencies*
 Nuget.config*
+/Videos/WebXRDemo.mp4
+/Videos/WebXRDemo.vproj.bak
+/Videos/IMG_5811.MOV
+/Videos/KJKJ3025.MP4
