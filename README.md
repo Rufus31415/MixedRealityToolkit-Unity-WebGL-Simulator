@@ -7,7 +7,7 @@ Live demo (please use [WebXR Viewer browser](https://apps.apple.com/us/app/webxr
 
 Video YouTube: https://www.youtube.com/watch?v=msORgnO6R9U&cc_load_policy=1
 
-Blog post : https://rufus31415.github.io/WebXR-demo-app-built-with-Unity-and-MRTK.html
+Blog post : https://rufus31415.github.io/webxr-webgl-demo-app-built-with-unity-and-mrtk.html
 
 Hacker News post: 
 
