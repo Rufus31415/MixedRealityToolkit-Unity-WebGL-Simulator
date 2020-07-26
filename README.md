@@ -1,3 +1,21 @@
+ <table>
+	<thead>
+		<tr>
+			<th>
+				<p align="center">:warning::warning::warning::warning::warning::warning:</p>
+				<p align="center">WebXR is now possible in Unity thanks to the SimpleWebXR library, which contains an example with the MRTK!</p>					<p align="center">So, this repo is deprecated, please have a look at this one:</p>
+				<p align="center"><a href="https://github.com/Rufus31415/Simple-WebXR-Unity">https://github.com/Rufus31415/Simple-WebXR-Unity</a></p>
+				<p align="center">:warning::warning::warning::warning::warning::warning:</p>
+			</th>
+		</tr>
+	</thead>
+</table>
+ 
+ 
+ 
+ 
+
+
 # Mixed Reality Toolkit for WebXR
 This repository is a fork of Microsoft [MRTK](https://microsoft.github.io/MixedRealityToolkit-Unity). It adds to the MRTK the WebXR target allowing to do augmented reality in the web browser. This project is a proof of concept and not an industrial implementation ! I developed this demonstration over a long weekend in confinement.
 
